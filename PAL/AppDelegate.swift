@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+
+//Global Variable
+var user_id: Int? = nil
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,6 +21,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+//        if(UserDefaults.standard.value(forKey: "user_id") != nil){
+//            //user_token = UserDefaults.standard.string(forKey: "user_id")!
+//            user_id = UserDefaults.standard.integer(forKey: "user_id")
+//
+//            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//            let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "main_nav") as! UINavigationController
+//            self.window?.rootViewController = vc
+//            self.window?.makeKeyAndVisible()
+//        }
+        
+        
+        
+        
+        
         return true
     }
 
