@@ -12,6 +12,9 @@ import CoreData
 
 //Global Variable
 var user_id: Int? = nil
+var form_id: Int? = nil
+var question_id: Int? = nil
+var submission_id: Int? = nil
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
