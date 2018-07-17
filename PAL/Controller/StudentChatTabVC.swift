@@ -61,6 +61,4 @@ class StudentChatTabVC: UIViewController {
             }
         }
     }
-    
-
 }
