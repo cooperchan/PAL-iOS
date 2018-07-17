@@ -12,8 +12,7 @@ class RegisterVC: UIViewController {
 
     
     
-    //email, full name, password, confirm password
-    // DoB, school, school_id, grad_year, gender, phone_number, counseler_id
+    var aboutText: String! = "Welcome to PAL. Your Path to Assisted Living! This app is designed as a tol to maintain communication between student and counselor. With PAL, users are able to create profiles, participate in questionnaires and an instant messaging system. The main goal of PAL is to build a orad to fostering emotional well-being. Here at PAL, we hope to improve your life one step at a time."
     
     //MARK: Variables
         //Required Items
@@ -23,24 +22,33 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPass: UITextField!
         //Optional Items
-    @IBOutlet weak var birthday: UITextField!
+    
+    @IBOutlet weak var birthMonth: UITextField!
+    @IBOutlet weak var birthDay: UITextField!
+    @IBOutlet weak var birthYear: UITextField!
     @IBOutlet weak var school: UITextField!
     @IBOutlet weak var schoolID: UITextField!
     @IBOutlet weak var counselorID: UITextField!
     @IBOutlet weak var graduationYear: UITextField!
     @IBOutlet weak var phoneNumber: UITextField!
     var gender: String!
+    var birthdate: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         gender = ""
+        birthdate = ""
         school.text = ""
         schoolID.text = ""
         counselorID.text = ""
         graduationYear.text = ""
         phoneNumber.text = ""
+        
+        let rightBarButton = UIBarButtonItem(title: "About", style: UIBarButtonItemStyle.plain, target: self, action: #selector(about))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    
     }
 
     @IBAction func radioMale(_ sender: Any) {
@@ -58,6 +66,8 @@ class RegisterVC: UIViewController {
     //MARK: Register
     @IBAction func register(_ sender: Any) {
         let fullName: String! = firstName.text! + " " + lastName.text!
+        birthdate = birthYear.text! + "-" + birthMonth.text! + "-" + birthDay.text!
+        print(birthdate)
         
         if password.text != confirmPass.text {
             _ = SweetAlert().showAlert("Error", subTitle: "Passwords do not match", style: .error)
@@ -65,7 +75,7 @@ class RegisterVC: UIViewController {
             _ = SweetAlert().showAlert("Error", subTitle: "One or more required fields is empty", style: .error)
         } else {
             //Remember to include birthdate
-            let parameters: [String: String] = ["name": fullName, "email": email.text!, "password": password.text!, "gender": gender, "school": school.text!, "school_id": schoolID.text!, "counselor_id": counselorID.text!, "grad_year": graduationYear.text!, "phone_number": phoneNumber.text! ]
+            let parameters: [String: String] = ["name": fullName, "email": email.text!, "password": password.text!, "birth_date": birthdate, "gender": gender, "school": school.text!, "school_id": schoolID.text!, "counselor_id": counselorID.text!, "grad_year": graduationYear.text!, "phone_number": phoneNumber.text! ]
         
             Service().register(parameters: parameters) { (response) in
                 print(response)
@@ -94,5 +104,9 @@ class RegisterVC: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func about() {
+        _ = SweetAlert().showAlert("About", subTitle: aboutText, style: .none)
     }
 }

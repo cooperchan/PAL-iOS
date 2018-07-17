@@ -14,13 +14,16 @@ class UpdateProfileVC: UIViewController {
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var phoneNumber: UITextField!
-    @IBOutlet weak var birthDate: UITextField!
+    @IBOutlet weak var birthMonth: UITextField!
+    @IBOutlet weak var birthDay: UITextField!
+    @IBOutlet weak var birthYear: UITextField!
+    
     @IBOutlet weak var school: UITextField!
     @IBOutlet weak var schoolID: UITextField!
     @IBOutlet weak var graduationYear: UITextField!
     @IBOutlet weak var counselorID: UITextField!
     var gender: String!
-    
+    var birthdate: String!
     //MARK: Constant
     @IBOutlet weak var email: UILabel!
     
@@ -32,6 +35,7 @@ class UpdateProfileVC: UIViewController {
         user_id = UserDefaults.standard.integer(forKey: "user_id")
         
         gender = ""
+        birthdate = ""
         school.text = ""
         schoolID.text = ""
         counselorID.text = ""
@@ -39,6 +43,9 @@ class UpdateProfileVC: UIViewController {
         phoneNumber.text = ""
         
         getData()
+        
+        let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
 
     @IBAction func radioMale(_ sender: Any) {
@@ -62,11 +69,13 @@ class UpdateProfileVC: UIViewController {
     //Mark: Update Profile
     @IBAction func updateProfile(_ sender: Any) {
         let fullName: String! = firstName.text! + " " + lastName.text!
+        birthdate = birthYear.text! + "-" + birthMonth.text! + "-" + birthDay.text!
+        if(birthdate == "--") {
+            birthdate = ""
+        }
         
-       
-        
-        let parameters: [String: String] = ["name": fullName, "gender": gender, "school": school.text!, "school_id": schoolID.text!, "counselor_id": counselorID.text!, "grad_year": graduationYear.text!, "phone_number": phoneNumber.text! ]
-            
+        let parameters: [String: String] = ["name": fullName, "birth_date": birthdate, "gender": gender, "school": school.text!, "school_id": schoolID.text!, "counselor_id": counselorID.text!, "grad_year": graduationYear.text!, "phone_number": phoneNumber.text! ]
+     
         Service().userUpdateProfile(user_id: user_id!, parameters: parameters)  { (json) in
             if json["status"].intValue == 1 {
                 //Show Popup of User Success
@@ -79,6 +88,14 @@ class UpdateProfileVC: UIViewController {
                 _ = SweetAlert().showAlert("Error", subTitle: "\(json["message"].stringValue)", style: .error)
             }
         }
+    }
+    
+    @objc func logOut() {
+        checker = true
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

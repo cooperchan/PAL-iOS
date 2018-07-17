@@ -10,6 +10,13 @@ import UIKit
 
 class QuestionsCell: UITableViewCell {
 
-    @IBOutlet weak var questionLabel: UILabel!
+//    @IBOutlet weak var button: UIButton!
+//
+//    @IBAction func buttonLabel(_ sender: Any) {
+//
+//    }
+
+    @IBOutlet weak var formLabel: UILabel!
+    
     
 }

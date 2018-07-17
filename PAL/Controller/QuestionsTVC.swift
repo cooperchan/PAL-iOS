@@ -12,26 +12,44 @@ import SwiftyJSON
 class QuestionsTVC: UITableViewController {
 
     //Variable to hold questions
-    var questions: [Post] = [Post]()
+    var forms: [Post] = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        user_id = UserDefaults.standard.integer(forKey: "user_id")
 
-        self.getQuestions()
+        self.getForms()
+        
+        let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    func getQuestions() {
-        //CHANGE THE FORM ID WHEN THE COUNSELOR IS MADE !!!!!!!!!!
-        Service().getFormByID(form_id: 23) { (response) in
+    func getForms() {
+        Service().getAvailableSubmission(user_id: user_id!) { (response) in
             for(_, responseJSON):(String, JSON) in response {
-                let question = Post(question: responseJSON["question"].stringValue)
-                self.questions.append(question)
+                let form = Post(form: responseJSON["name"].stringValue)
+                self.forms.append(form)
+                
+                let submission = responseJSON["id"].intValue
+                submissions_id.append(submission)
+                
+                let defaults = UserDefaults.standard
+                defaults.set(submissions_id, forKey: "SavedSubArray")
+                UserDefaults.standard.synchronize()
             }
             self.tableView.reloadData()
+        
+            //WORK ON THIS!!!!!!!!!!!!!!
+            //Save Submission ID
+//            let submission_id = 14
+//            UserDefaults.standard.set(submission_id, forKey: "submission_id")
+//            UserDefaults.standard.synchronize()
         }
     }
     
-    // Submission ID - 4
+    // Submission ID - 4, 14, 15 - responseJSON["id"]
+    // Submission ID - 0         - response["id"]
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -40,17 +58,37 @@ class QuestionsTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return questions.count;
+        return forms.count;
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let question = self.tableView.dequeueReusableCell(withIdentifier: "question", for: indexPath) as! QuestionsCell
+        let form = self.tableView.dequeueReusableCell(withIdentifier: "form", for: indexPath) as! QuestionsCell
+    
+        let post = self.forms[indexPath.row]
+
+        //form.button.setTitle("\(post.form!)", for: .normal)
         
-        let post = self.questions[indexPath.row]
+        form.formLabel.text = post.form!
         
-        question.questionLabel.text = post.question
+        return form
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let id = submissions_id[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+        print(id)
         
-        return question
+        UserDefaults.standard.set(id, forKey: "submission_id")
+        UserDefaults.standard.synchronize()
+        self.performSegue(withIdentifier: "toQuestion", sender: nil)
+    }
+    
+    @objc func logOut() {
+        checker = true
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
+        self.present(vc, animated: true, completion: nil)
     }
 }

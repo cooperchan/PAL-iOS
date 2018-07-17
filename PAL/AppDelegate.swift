@@ -12,9 +12,16 @@ import CoreData
 
 //Global Variable
 var user_id: Int? = nil
+var counselor_id: Int? = nil
+var role: Int? = nil
 var form_id: Int? = nil
 var question_id: Int? = nil
 var submission_id: Int? = nil
+var chat_id: Int? = nil
+var submissions_id: [Int] = [Int]()
+var student_id: [Int] = [Int]()
+var counter: Int = 0
+var checker: Bool = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
