@@ -9,10 +9,12 @@ target 'PAL' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire', '~> 4.7'
   pod 'DLRadioButton', '~> 1.4'
+  pod 'MessageKit'
 
   target 'PALTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Socket.IO-Client-Swift', '~> 13.2.0'
   end
 
   target 'PALUITests' do

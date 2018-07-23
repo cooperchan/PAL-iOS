@@ -11,8 +11,10 @@ import CoreData
 
 
 //Global Variable
+var user_name: String? = nil
 var user_id: Int? = nil
 var counselor_id: Int? = nil
+var student_ID: Int? = nil
 var role: Int? = nil
 var form_id: Int? = nil
 var question_id: Int? = nil

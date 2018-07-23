@@ -71,9 +71,12 @@ class AssignFormsTVC: UITableViewController {
         print(id)
         tableView.deselectRow(at: indexPath, animated: true)
         
+        //student_ID = id
+        
+        
         UserDefaults.standard.set(id, forKey: "student_id")
         UserDefaults.standard.synchronize()
-        self.performSegue(withIdentifier: "toAssign", sender: nil)
+        self.performSegue(withIdentifier: "toActions", sender: nil)
     }
 
 }

@@ -47,6 +47,10 @@ class ProfileVC: UIViewController {
             self.graduationYear.text = "Graduation Year: \(json["grad_year"].stringValue)"
             self.counselorID.text = "Counselor ID: \(json["counselor_id"].stringValue)"
             
+            user_name = json["name"].stringValue
+            UserDefaults.standard.set(user_name, forKey: "stud_name")
+            UserDefaults.standard.synchronize()
+            
             counselor_id = json["counselor_id"].intValue
             UserDefaults.standard.set(counselor_id, forKey: "counselor_id")
             UserDefaults.standard.synchronize()

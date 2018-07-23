@@ -217,4 +217,13 @@ class Service {
             }
         }
     }
+    
+    func getMessage(chat_id: Int, callback:@escaping (_ json:JSON) ->()) {
+        let url = baseUrl + "/chat/get/\(chat_id)/"
+        Alamofire.request(url, method: .get, parameters: nil).responseJSON { (response) in
+            if let json = response.result.value {
+                callback(JSON(json))
+            }
+        }
+    }
 }

@@ -1284,7 +1284,7 @@
                             <outlet property="delegate" destination="m4c-zZ-G3z" id="Jer-aG-kSL"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="View Answers" id="aDo-Si-yzG"/>
+                    <tabBarItem key="tabBarItem" title="View Answers" image="icons8-answers-50" id="aDo-Si-yzG"/>
                     <connections>
                         <segue destination="Iud-6X-JNd" kind="show" identifier="toQA" id="0GJ-tc-Kkf"/>
                     </connections>
@@ -1350,6 +1350,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qif-vg-DMu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="993" y="-1075"/>
+        </scene>
+        <!--Counselor ActivitiesVC-->
+        <scene sceneID="H8v-Zd-cY1">
+            <objects>
+                <viewController storyboardIdentifier="CounselorActivities" id="VD1-gt-xwc" customClass="CounselorActivitiesVC" customModule="PAL" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iXl-Q2-UxU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dm8-uC-ole">
+                                <rect key="frame" x="39" y="74" width="296" height="80"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="W33-ft-k5B"/>
+                                </constraints>
+                                <state key="normal" title="Assign Forms">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toAssignFormsButt:" destination="VD1-gt-xwc" eventType="touchUpInside" id="D4m-B2-KWk"/>
+                                    <segue destination="DKZ-SZ-CZ6" kind="show" id="Yn5-fn-aHH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Bo-Fy-Nad">
+                                <rect key="frame" x="39" y="199" width="296" height="80"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Chat">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toChatButt:" destination="VD1-gt-xwc" eventType="touchUpInside" id="NT6-q6-ld5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Dm8-uC-ole" firstAttribute="top" secondItem="kxO-YG-kfz" secondAttribute="top" constant="54" id="74V-Xl-f2N"/>
+                            <constraint firstItem="1Bo-Fy-Nad" firstAttribute="leading" secondItem="kxO-YG-kfz" secondAttribute="leading" constant="39" id="8mn-mo-Ked"/>
+                            <constraint firstItem="Dm8-uC-ole" firstAttribute="leading" secondItem="kxO-YG-kfz" secondAttribute="leading" constant="39" id="Dfw-Jd-TsY"/>
+                            <constraint firstItem="Dm8-uC-ole" firstAttribute="leading" secondItem="1Bo-Fy-Nad" secondAttribute="leading" id="EEE-5K-dIB"/>
+                            <constraint firstItem="Dm8-uC-ole" firstAttribute="trailing" secondItem="1Bo-Fy-Nad" secondAttribute="trailing" id="FCj-s3-Rz0"/>
+                            <constraint firstItem="Dm8-uC-ole" firstAttribute="centerX" secondItem="iXl-Q2-UxU" secondAttribute="centerX" id="ghU-MJ-zgb"/>
+                            <constraint firstItem="kxO-YG-kfz" firstAttribute="bottom" secondItem="1Bo-Fy-Nad" secondAttribute="bottom" constant="344" id="pfP-Cx-JPX"/>
+                            <constraint firstItem="1Bo-Fy-Nad" firstAttribute="top" secondItem="Dm8-uC-ole" secondAttribute="bottom" constant="45" id="tef-iH-rm3"/>
+                            <constraint firstItem="1Bo-Fy-Nad" firstAttribute="top" secondItem="kxO-YG-kfz" secondAttribute="top" constant="179" id="uYz-l7-xsx"/>
+                            <constraint firstItem="kxO-YG-kfz" firstAttribute="trailing" secondItem="1Bo-Fy-Nad" secondAttribute="trailing" constant="40" id="z2a-XB-PHM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kxO-YG-kfz"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Glv-vr-ky3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="-1765"/>
         </scene>
         <!--View Forms-->
         <scene sceneID="Ncp-8o-OS9">
@@ -1430,9 +1483,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sw5-w0-0nB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="993" y="-1765"/>
+            <point key="canvasLocation" x="1977" y="-2169"/>
         </scene>
-        <!--View Forms-->
+        <!--View Students-->
         <scene sceneID="fd3-jx-At2">
             <objects>
                 <tableViewController id="Xdm-np-sTa" customClass="AssignFormsTVC" customModule="PAL" customModuleProvider="target" sceneMemberID="viewController">
@@ -1473,9 +1526,9 @@
                             <outlet property="delegate" destination="Xdm-np-sTa" id="QQk-Gz-QnX"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="View Forms" id="tPi-kc-wbi"/>
+                    <tabBarItem key="tabBarItem" title="View Students" image="profile" id="tPi-kc-wbi"/>
                     <connections>
-                        <segue destination="DKZ-SZ-CZ6" kind="show" identifier="toAssign" id="WZR-yk-shg"/>
+                        <segue destination="VD1-gt-xwc" kind="show" identifier="toActions" id="h77-GI-DXc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="128-di-lGt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1802,6 +1855,7 @@
     <resources>
         <image name="32x32" width="32" height="32"/>
         <image name="Golden-Retriever-Puppy-PNG-File" width="1678" height="1119"/>
+        <image name="icons8-answers-50" width="38" height="38"/>
         <image name="logo" width="425" height="472"/>
         <image name="profile" width="32" height="32"/>
         <image name="text-line-form" width="32" height="32"/>
