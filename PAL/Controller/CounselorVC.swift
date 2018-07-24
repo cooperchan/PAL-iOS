@@ -36,18 +36,18 @@ class CounselorVC: UIViewController {
 
     func getData() {
         Service().userProfile(user_id: user_id!) { (json) in
-            self.counselorName.text = "Name: \(json["name"].stringValue)"
-            self.counselorEmail.text = "Email: \(json["email"].stringValue)"
+            self.counselorName.text = " \(json["name"].stringValue)"
+            self.counselorEmail.text = " \(json["email"].stringValue)"
             
             let num: String = json["phone_number"].stringValue
             let fixedPhoneNumber = self.getPhoneNumber(num: num)
-            self.counselorPhoneNumber.text = "Phone Number: \(fixedPhoneNumber)"
+            self.counselorPhoneNumber.text = " \(fixedPhoneNumber)"
             
-            self.counselorBirthday.text = "Birthdate: \(json["birth_date"].stringValue)"
-            self.counselorGender.text = "Gender: \(json["gender"].stringValue)"
-            self.counselorSchool.text = "School: \(json["school"].stringValue)"
-            self.counselorSchoolID.text = "School ID: \(json["school_id"].stringValue)"
-            self.CounselorID.text = "Counselor ID: \(json["counselor_id"].stringValue)"
+            self.counselorBirthday.text = " \(json["birth_date"].stringValue)"
+            self.counselorGender.text = " \(json["gender"].stringValue)"
+            self.counselorSchool.text = " \(json["school"].stringValue)"
+            self.counselorSchoolID.text = " \(json["school_id"].stringValue)"
+            self.CounselorID.text = " \(json["counselor_id"].stringValue)"
         }
     }
     

@@ -34,18 +34,18 @@ class ProfileVC: UIViewController {
     
     func getData() {
         Service().userProfile(user_id: user_id!) { (json) in
-            self.name.text = "Name: \(json["name"].stringValue)"
-            self.email.text = "Email: \(json["email"].stringValue)"
+            self.name.text = " \(json["name"].stringValue)"
+            self.email.text = " \(json["email"].stringValue)"
            
             let num: String = json["phone_number"].stringValue
             let fixedPhoneNumber = self.getPhoneNumber(num: num)
-            self.phoneNumber.text = "Phone Number: \(fixedPhoneNumber)"
-            self.birthday.text = "Birthdate: \(json["birth_date"].stringValue)"
-            self.gender.text = "Gender: \(json["gender"].stringValue)"
-            self.school.text = "School: \(json["school"].stringValue)"
-            self.schoolID.text = "School ID: \(json["school_id"].stringValue)"
-            self.graduationYear.text = "Graduation Year: \(json["grad_year"].stringValue)"
-            self.counselorID.text = "Counselor ID: \(json["counselor_id"].stringValue)"
+            self.phoneNumber.text = " \(fixedPhoneNumber)"
+            self.birthday.text = " \(json["birth_date"].stringValue)"
+            self.gender.text = " \(json["gender"].stringValue)"
+            self.school.text = " \(json["school"].stringValue)"
+            self.schoolID.text = " \(json["school_id"].stringValue)"
+            self.graduationYear.text = " \(json["grad_year"].stringValue)"
+            self.counselorID.text = " \(json["counselor_id"].stringValue)"
             
             user_name = json["name"].stringValue
             UserDefaults.standard.set(user_name, forKey: "stud_name")
