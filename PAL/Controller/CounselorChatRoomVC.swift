@@ -382,7 +382,7 @@ extension CounselorChatRoomVC: MessageInputBarDelegate {
             }
             
         }
-        
+        //this is annoying
         inputBar.inputTextView.text = String()
         messagesCollectionView.scrollToBottom()
     }
