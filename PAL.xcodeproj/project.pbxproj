@@ -14,6 +14,8 @@
 		8424183720EFAAFF0060A63F /* StudentListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183620EFAAFF0060A63F /* StudentListTVC.swift */; };
 		8424183D20EFE2DD0060A63F /* StudentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183C20EFE2DD0060A63F /* StudentsCell.swift */; };
 		8449892D21137363001F04B6 /* CounselorTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449892C21137363001F04B6 /* CounselorTabBarVC.swift */; };
+		8449893321138280001F04B6 /* AllowedCharsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449893221138280001F04B6 /* AllowedCharsTextField.swift */; };
+		84498935211386B1001F04B6 /* TextFieldMaxLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84498934211386B1001F04B6 /* TextFieldMaxLengths.swift */; };
 		8450E63020EAAAEC0022148D /* UpdateCounselorProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */; };
 		8472737920CEFA0400D0EA66 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472737820CEFA0400D0EA66 /* LoginVC.swift */; };
 		8472737B20CEFCDA00D0EA66 /* Sweetalert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472737A20CEFCDA00D0EA66 /* Sweetalert.swift */; };
@@ -71,6 +73,8 @@
 		8424183620EFAAFF0060A63F /* StudentListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListTVC.swift; sourceTree = "<group>"; };
 		8424183C20EFE2DD0060A63F /* StudentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsCell.swift; sourceTree = "<group>"; };
 		8449892C21137363001F04B6 /* CounselorTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselorTabBarVC.swift; sourceTree = "<group>"; };
+		8449893221138280001F04B6 /* AllowedCharsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowedCharsTextField.swift; sourceTree = "<group>"; };
+		84498934211386B1001F04B6 /* TextFieldMaxLengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMaxLengths.swift; sourceTree = "<group>"; };
 		8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCounselorProfileVC.swift; sourceTree = "<group>"; };
 		8472737820CEFA0400D0EA66 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8472737A20CEFCDA00D0EA66 /* Sweetalert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sweetalert.swift; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 			children = (
 				D627417020CE0BB400CFA0C9 /* Service.swift */,
 				8472737A20CEFCDA00D0EA66 /* Sweetalert.swift */,
+				8449893221138280001F04B6 /* AllowedCharsTextField.swift */,
+				84498934211386B1001F04B6 /* TextFieldMaxLengths.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -553,6 +559,7 @@
 				8493A48E20DAC83800DA30B4 /* QuestionsCell.swift in Sources */,
 				84DD6D762100F7FB005581B5 /* CounselorActivitiesVC.swift in Sources */,
 				D627416F20CE0AB200CFA0C9 /* RegisterVC.swift in Sources */,
+				84498935211386B1001F04B6 /* TextFieldMaxLengths.swift in Sources */,
 				84DD6D7420FE8685005581B5 /* MockMessage.swift in Sources */,
 				8472737920CEFA0400D0EA66 /* LoginVC.swift in Sources */,
 				84EF1CFA20E55F380094E154 /* CounselorVC.swift in Sources */,
@@ -565,6 +572,7 @@
 				849E3BC120D31AC200B932E6 /* Post.swift in Sources */,
 				8449892D21137363001F04B6 /* CounselorTabBarVC.swift in Sources */,
 				8493A48820D8662D00DA30B4 /* UpdateProfileVC.swift in Sources */,
+				8449893321138280001F04B6 /* AllowedCharsTextField.swift in Sources */,
 				84DD6D7220FE6FD2005581B5 /* StudentChatRoomVC.swift in Sources */,
 				8424183D20EFE2DD0060A63F /* StudentsCell.swift in Sources */,
 				84DD6D7020FCF2B3005581B5 /* StudentChatTabVC.swift in Sources */,
