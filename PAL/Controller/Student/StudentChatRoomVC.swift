@@ -33,20 +33,28 @@
 import UIKit
 import MessageKit
 import MapKit
+import SocketIO
+import SwiftyJSON
 
+/*
+ The Chat Room for the Student, created using MessageKit and connected to the server with Socket.IO
+*/
 internal class StudentChatRoomVC: MessagesViewController {
     
     let refreshControl = UIRefreshControl()
-    let sender = Sender(id: "any_unique_id", displayName: "You")
     var messages: [MessageType] = []
     var tempString: String = ""
     
+    //The Senders, determine whether message goes on left or right side)
+    let sender = Sender(id: "any_unique_id", displayName: "You")
+    var oppSender = Sender(id: "different", displayName: "Counselor")
     
-    var timer = Timer()
+    //Let's use have access to all public properties and methods of the class
+    //Also connects to the server using Socket.IO
+    static let sharedInstance = StudentChatRoomVC()
+    let manager = SocketManager(socketURL: URL(string: "http://pal.njcuacm.org:443")!, config: [.log(true), .compress])
+    lazy var socket: SocketIOClient! = manager.defaultSocket
     
-    var oppSender = Sender(id: "different", displayName: "Robert Maloy")
-    
-    var isTyping = false
     
     lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -57,21 +65,7 @@ internal class StudentChatRoomVC: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ConversationViewController is called")
-        
-        navigationItem.title = "Chat Room \(chat_id!)"
-        
-        //Start with X amount of messages already created
-        
-        //        DispatchQueue.global(qos: .userInitiated).async {
-        //            SampleData.shared.getMessages(count: messagesToFetch) { messages in
-        //                DispatchQueue.main.async {
-        //                    self.messageList = messages
-        //                    self.messagesCollectionView.reloadData()
-        //                    self.messagesCollectionView.scrollToBottom()
-        //                }
-        //            }
-        //        }
+        navigationItem.title = "Counselor Chat"
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -84,45 +78,107 @@ internal class StudentChatRoomVC: MessagesViewController {
         maintainPositionOnKeyboardFrameChanged = true // default false
         
         messagesCollectionView.addSubview(refreshControl)
-        //refreshControl.addTarget(self, action: #selector(StudentChatRoomVC.loadMoreMessages), for: .valueChanged)
         
-        scheduledTimeWithTimeInterval()
-     
+        self.getData()
+        self.addHandlers()
+        self.socket.connect()
     }
     
-    func scheduledTimeWithTimeInterval() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getData), userInfo: nil, repeats: true)
+    //Gets the counselor name based on their ID and saves it
+    //This will be used as reciever for the server
+    func getData() {
+        print("THE COUNRSLOER ID IS: \(counselor_id!)")
+        Service().getCounselorFromID(user_id: counselor_id!) { (response) in
+            let data = response[0]
+            counselor_name = data["name"].stringValue
+            UserDefaults.standard.set(counselor_name, forKey: "counselor_name")
+            UserDefaults.standard.synchronize()
+        }
     }
     
-    @objc func handleTyping() {
-        
-        defer {
-            isTyping = !isTyping
+    //Socket.IO Handlers
+    func addHandlers() {
+        //When Recieving a New Message, get the message and username
+        //Using MessageKit display it on the left side if the username isn't the same as the students
+        socket.on("new message") {dataArray, ack in
+            let data = dataArray[0]
+            let work = data as! Dictionary<String, Any>
+            
+            let message = work["message"]!
+            let username = work["username"]!
+            
+            if username as? String != user_name! {
+                self.oppSender = Sender(id: "Student", displayName: username as! String)
+                let retrieveMessage = MockMessage(text: message as! String, sender: self.oppSender, messageId: UUID().uuidString, date: Date())
+                self.messages.append(retrieveMessage)
+                self.messagesCollectionView.insertSections([self.messages.count - 1])
+                self.messagesCollectionView.scrollToBottom()
+            }
         }
         
-        if isTyping {
-            
-            messageInputBar.topStackView.arrangedSubviews.first?.removeFromSuperview()
-            messageInputBar.topStackViewPadding = .zero
-            
-        } else {
-            
-            let label = UILabel()
-            label.text = "nathan.tannar is typing..."
-            label.font = UIFont.boldSystemFont(ofSize: 16)
-            messageInputBar.topStackView.addArrangedSubview(label)
-            messageInputBar.topStackViewPadding.top = 6
-            messageInputBar.topStackViewPadding.left = 12
-            
-            // The backgroundView doesn't include the topStackView. This is so things in the topStackView can have transparent backgrounds if you need it that way or another color all together
-            messageInputBar.backgroundColor = messageInputBar.backgroundView.backgroundColor
-            
+        //When registered if typing, use MessageKit to display the other user is typing
+        socket.on("typing") {dataArray, ack in
+            let data = dataArray[0]
+            let work = data as! Dictionary<String, Any>
+            let username = work["username"]!
+
+            self.handleTyping(username: (username as? String)!)
         }
         
+        //When registerd they typing stopped, use MessageKit to stop the display
+        socket.on("stop typing") {dataArray, ack in
+            self.stopTyping()
+        }
+        
+        //When registered a user joined, print out the array -------> Turn into Push Notification
+        socket.on("user joined") {dataArray, ack in
+            print("Username hopefully is \(dataArray)")
+        }
+        
+        //When registered a user left, print out the array --------> Turn into Push Notification
+        socket.on("user left") {dataArray, ack in
+            print("Username that left hopefully is \(dataArray)")
+        }
+        
+        //When registered you disconnect, close the connection to the server
+        socket.on("disconnect") {dataArray, ack in
+            self.closeConnection()
+        }
+        
+        //When registered you connect, add the user to the chat room
+        socket.on("connect") { _, _ in
+            self.socket.emit("add user", user_name!)
+        }
+    }
+    
+    //Disconnect from Server
+    func closeConnection() {
+        socket.disconnect()
+        print("Disconnected")
+    }
+    
+    //Displays 'User is typing...' when recieved prompt
+    @objc func handleTyping(username: String) {
+        
+        let label = UILabel()
+        label.text = "\(username) is typing..."
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        messageInputBar.topStackView.addArrangedSubview(label)
+        messageInputBar.topStackViewPadding.top = 6
+        messageInputBar.topStackViewPadding.left = 12
+        
+        // The backgroundView doesn't include the topStackView. This is so things in the topStackView can have transparent backgrounds if you need it that way or another color all together
+        messageInputBar.backgroundColor = messageInputBar.backgroundView.backgroundColor
+        
+    }
+    
+    //Stops displaying typing message
+    func stopTyping() {
+        messageInputBar.topStackView.arrangedSubviews.first?.removeFromSuperview()
+        messageInputBar.topStackViewPadding = .zero
     }
     
     // MARK: - Keyboard Style
-    
     func slack() {
         //defaultStyle()
         messageInputBar.backgroundView.backgroundColor = .blue
@@ -130,20 +186,6 @@ internal class StudentChatRoomVC: MessagesViewController {
         messageInputBar.inputTextView.backgroundColor = .red
         messageInputBar.inputTextView.layer.borderWidth = 0
         let items = [
-            //            makeButton(named: "ic_camera").onTextViewDidChange { button, textView in
-            //                button.isEnabled = textView.text.isEmpty
-            //            },
-            //            makeButton(named: "ic_at").onSelected {
-            //                $0.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-            //            },
-            //            makeButton(named: "ic_hashtag").onSelected {
-            //                $0.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-            //            },
-            //            .flexibleSpace,
-            //            makeButton(named: "ic_library").onTextViewDidChange { button, textView in
-            //                button.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-            //                button.isEnabled = textView.text.isEmpty
-            //            },
             messageInputBar.sendButton
                 .configure {
                     $0.layer.cornerRadius = 8
@@ -178,40 +220,6 @@ internal class StudentChatRoomVC: MessagesViewController {
         messageInputBar.setStackViewItems(items, forStack: .bottom, animated: true)
     }
     
-    //    func iMessage() {
-    //        defaultStyle()
-    //        messageInputBar.isTranslucent = false
-    //        messageInputBar.backgroundView.backgroundColor = .white
-    //        messageInputBar.separatorLine.isHidden = true
-    //        messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-    //        messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-    //        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
-    //        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
-    //        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
-    //        messageInputBar.inputTextView.layer.borderWidth = 1.0
-    //        messageInputBar.inputTextView.layer.cornerRadius = 16.0
-    //        messageInputBar.inputTextView.layer.masksToBounds = true
-    //        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-    //        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: true)
-    //        messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: true)
-    //        messageInputBar.sendButton.imageView?.backgroundColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-    //        messageInputBar.sendButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-    //        messageInputBar.sendButton.setSize(CGSize(width: 36, height: 36), animated: true)
-    //        messageInputBar.sendButton.image = #imageLiteral(resourceName: "ic_up")
-    //        messageInputBar.sendButton.title = nil
-    //        messageInputBar.sendButton.imageView?.layer.cornerRadius = 16
-    //        messageInputBar.sendButton.backgroundColor = .clear
-    //        messageInputBar.textViewPadding.right = -38
-    //    }
-    
-    //    func defaultStyle() {
-    //        let newMessageInputBar = MessageInputBar()
-    //        newMessageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-    //        newMessageInputBar.delegate = self
-    //        messageInputBar = newMessageInputBar
-    //        reloadInputViews()
-    //    }
-    
     // MARK: - Helpers
     
     func makeButton(named: String) -> InputBarButtonItem {
@@ -233,7 +241,7 @@ internal class StudentChatRoomVC: MessagesViewController {
 // MARK: - MessagesDataSource
 
 extension StudentChatRoomVC: MessagesDataSource {
-    
+    //IDENTIFY THE CURRENT SENDER - MAKES THEM RIGHT SIDE
     func currentSender() -> Sender {
         return sender
     }
@@ -296,14 +304,6 @@ extension StudentChatRoomVC: MessagesDisplayDelegate {
         //        let configurationClosure = { (view: MessageContainerView) in}
         //        return .custom(configurationClosure)
     }
-    
-    //    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-    //        let avatar = SampleData.shared.getAvatarFor(sender: message.sender)
-    //        avatarView.set(avatar: avatar)
-    //    }
-    
-    // MARK: - Location Messages
-    
 }
 
 // MARK: - MessagesLayoutDelegate
@@ -382,62 +382,34 @@ extension StudentChatRoomVC: MessageLabelDelegate {
 // MARK: - MessageInputBarDelegate
 
 extension StudentChatRoomVC: MessageInputBarDelegate {
-
+    
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-
+        
         // Each NSTextAttachment that contains an image will count as one empty character in the text: String
-        print(Date()) //Date() gives compelete date: 2018-07-17 22:08:20 +0000
-        
-        let params: [String: Any] = ["message": text, "chat_id": chat_id!, "student_id": user_id!, "counselor_id": counselor_id!, "role": role!]
-        
+        let params: [String: Any] = ["message": text, "sender": user_name!, "receiver": counselor_name!]
+
         sendData(params: params)
         
         for component in inputBar.inputTextView.components {
-
+            
             if let text = component as? String {
-
+                
                 let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black])
-
+                
                 let message = MockMessage(attributedText: attributedText, sender: currentSender(), messageId: UUID().uuidString, date: Date())
                 messages.append(message)
                 messagesCollectionView.insertSections([messages.count - 1])
             }
-
+            
         }
-
+        
         inputBar.inputTextView.text = String()
         messagesCollectionView.scrollToBottom()
-        
-//        let test = MockMessage(text: "Hellow World", sender: oppSender, messageId: UUID().uuidString, date: Date())
-//        self.messages.append(test)
-//        messagesCollectionView.insertSections([messages.count - 1])
     }
     
     func sendData(params: [String: Any]) {
         Service().sendMessage(parameters: params) { (response) in
-            print(response)
-        }
-    }
-    
-    @objc func getData() {
-        Service().getMessage(chat_id: chat_id!) { (response) in
-            let last_message = response["message_last"].stringValue
-            let updated_at = response["updated_at"].stringValue
-            let counselorID = response["counselor_id"].intValue
-            
-            self.oppSender = Sender(id: "Counselor", displayName: "Counselor")
-            print("The tempString is: \(self.tempString)")
-            print("The updated_at is: \(updated_at)")
-            if self.tempString != updated_at {
-                if counselorID < 0 {
-                    let retrieveMessage = MockMessage(text: last_message, sender: self.oppSender, messageId: UUID().uuidString, date: Date())
-                    self.messages.append(retrieveMessage)
-                    self.messagesCollectionView.insertSections([self.messages.count - 1])
-                }
-            }
-            self.tempString = updated_at
+            print("This is the sendMessage response!!!!!!!!!!:::::: \(response)")
         }
     }
 }
-
-

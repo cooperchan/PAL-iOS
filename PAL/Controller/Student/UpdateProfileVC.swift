@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ This controller handles the update page for the student
+ It allows them to change most information, except their email
+ */
 class UpdateProfileVC: UIViewController {
 
     //MARK: Variables
@@ -32,8 +36,10 @@ class UpdateProfileVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //Get User ID
         user_id = UserDefaults.standard.integer(forKey: "user_id")
         
+        //Set the inital fields to blank
         gender = ""
         birthdate = ""
         school.text = ""
@@ -44,10 +50,12 @@ class UpdateProfileVC: UIViewController {
         
         getData()
         
+        //Log Out Prompt
         let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
-
+    
+    //Gender Buttons
     @IBAction func radioMale(_ sender: Any) {
         gender = "Male"
     }
@@ -60,6 +68,7 @@ class UpdateProfileVC: UIViewController {
         gender = "Other"
     }
     
+    //Displays the email
     func getData() {
         Service().userProfile(user_id: user_id!) { (json) in
             self.email.text = "Email: \(json["email"].stringValue)"
@@ -90,12 +99,19 @@ class UpdateProfileVC: UIViewController {
         }
     }
     
+    /*
+     Allows the user to logout, sending them back to inital landing page
+     THe checker ensures that the About Info doesn't popup again
+     Also closes connection to chatroom
+     */
     @objc func logOut() {
         checker = true
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
         self.present(vc, animated: true, completion: nil)
+        
+        StudentChatRoomVC.sharedInstance.closeConnection()
     }
 }
 

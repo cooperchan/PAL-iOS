@@ -9,6 +9,11 @@
 import UIKit
 import SwiftyJSON
 
+/*
+ This is the Forms Page for the student, it displays all available forms the student must compelete
+ Tapping on a form will change the controller to QuestionsVC for the appropriate form
+ It is part of a tab bar and nav bar, allowing them to switch between Profile, Forms, and Chat
+ */
 class QuestionsTVC: UITableViewController {
 
     //Variable to hold questions
@@ -16,15 +21,13 @@ class QuestionsTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Get User ID
         user_id = UserDefaults.standard.integer(forKey: "user_id")
 
         self.getForms()
-        
-        let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
-        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    //Gets all available form names and saves them in an array of Post
     func getForms() {
         Service().getAvailableSubmission(user_id: user_id!) { (response) in
             for(_, responseJSON):(String, JSON) in response {
@@ -39,18 +42,9 @@ class QuestionsTVC: UITableViewController {
                 UserDefaults.standard.synchronize()
             }
             self.tableView.reloadData()
-        
-            //WORK ON THIS!!!!!!!!!!!!!!
-            //Save Submission ID
-//            let submission_id = 14
-//            UserDefaults.standard.set(submission_id, forKey: "submission_id")
-//            UserDefaults.standard.synchronize()
         }
     }
     
-    // Submission ID - 4, 14, 15 - responseJSON["id"]
-    // Submission ID - 0         - response["id"]
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -74,6 +68,11 @@ class QuestionsTVC: UITableViewController {
         return form
     }
     
+    /*
+    Lets each form name be tappable
+    Each ID is the form ID and saves it for the Questions VC
+    Goes to the QuestionsVC when pressed
+     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let id = submissions_id[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
@@ -82,13 +81,5 @@ class QuestionsTVC: UITableViewController {
         UserDefaults.standard.set(id, forKey: "submission_id")
         UserDefaults.standard.synchronize()
         self.performSegue(withIdentifier: "toQuestion", sender: nil)
-    }
-    
-    @objc func logOut() {
-        checker = true
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
-        self.present(vc, animated: true, completion: nil)
     }
 }

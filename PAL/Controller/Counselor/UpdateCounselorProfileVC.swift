@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ This controller handles the update page for the counselor
+ It allows them to change most information, except their email
+*/
 class UpdateCounselorProfileVC: UIViewController {
     
     //MARK: Variables
@@ -32,8 +36,10 @@ class UpdateCounselorProfileVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //Get the user ID
         user_id = UserDefaults.standard.integer(forKey: "user_id")
         
+        //Set inital fields to blank
         counselorPhoneNumber.text = ""
         counselorSchool.text = ""
         counselorSchoolID.text = ""
@@ -43,14 +49,13 @@ class UpdateCounselorProfileVC: UIViewController {
         
         getData()
         
+        //Log Out Prompt
         let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
         self.navigationItem.rightBarButtonItem = rightBarButton
         
     }
 
-  
-    
-
+    //Buttons for 3 genders
     @IBAction func radioBtnMale(_ sender: Any) {
         counselorGender = "Male"
     }
@@ -63,13 +68,14 @@ class UpdateCounselorProfileVC: UIViewController {
         counselorGender = "Other"
     }
     
+    //Gets the counselors email
     func getData() {
         Service().userProfile(user_id: user_id!) { (json) in
             self.counselorEmail.text = "Email: \(json["email"].stringValue)"
         }
     }
     
-    
+    //Calls update profile 
     @IBAction func updateCounselorProfile(_ sender: Any) {
         let counselorFullName: String! = counselorFirstName.text! + " " + counselorLastName.text!
         counselorBirthdate = counselorBirthYear.text! + "-" + counselorBirthMonth.text! + "-" + counselorBirthDay.text!
@@ -93,6 +99,11 @@ class UpdateCounselorProfileVC: UIViewController {
         }
     }
     
+    /*
+     Allows the user to logout, sending them back to inital landing page
+     THe checker ensures that the About Info doesn't popup again
+     Also closes connection to chatroom
+     */
     @objc func logOut(_ sender:UIBarButtonItem!) {
         checker = true
         
@@ -100,6 +111,7 @@ class UpdateCounselorProfileVC: UIViewController {
         let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
         self.present(vc, animated: true, completion: nil)
         
+        CounselorChatRoomVC.sharedInstance.closeConnection()
     }
     
 }

@@ -9,7 +9,10 @@
 import UIKit
 import SwiftyJSON
 
-class AssignFormsTVC: UITableViewController {
+/*
+ This controllers shows the list of students currently assigned to that counselor
+ */
+class StudentListTVC: UITableViewController {
     
     var studentList: [Post] = [Post]()
     var counter: Int = 0
@@ -18,15 +21,16 @@ class AssignFormsTVC: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //Get the counselor ID
         counselor_id = UserDefaults.standard.integer(forKey: "counselor_id")
         print("Counselor ID is: \(counselor_id!)")
         
         self.getList()
     }
     
+    //Get the list of students based off counselor ID, save to array
     func getList() {
         Service().getStudentsForCounselor(user_id: counselor_id!){ (response) in
-            
             //Append data to array
             for(_, responseJSON):(String, JSON) in response {
                 //Get and save student name in a Post array
@@ -46,6 +50,7 @@ class AssignFormsTVC: UITableViewController {
             self.tableView.reloadData()
         }
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -65,14 +70,16 @@ class AssignFormsTVC: UITableViewController {
         return form
     }
     
+    /*
+     Lets each student name be tappable
+     Each ID is the student ID and saves it for the assigning forms
+     Goes to the CounselorActitivies when pressed
+     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(student_id[indexPath.row])
         let id = student_id[indexPath.row]
         print(id)
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        //student_ID = id
-        
         
         UserDefaults.standard.set(id, forKey: "student_id")
         UserDefaults.standard.synchronize()

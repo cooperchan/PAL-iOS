@@ -168,6 +168,16 @@ class Service {
         }
     }
     
+    //Get Counselor Information Based on Counselor ID
+    func getCounselorFromID(user_id: Int, callback:@escaping (_ json:JSON) ->()) {
+        let url = baseUrl + "/profile/counselor/\(user_id)/*"
+        Alamofire.request(url, method: .get, parameters: nil).responseJSON { (response) in
+            if let json = response.result.value {
+                callback(JSON(json))
+            }
+        }
+    }
+    
     //Get Student Name and Submitted Form
     func getStudentAndForm(counselor_id: Int, callback:@escaping (_ json:JSON) ->()) {
         let url = baseUrl + "/get/form/counselor/\(counselor_id)"

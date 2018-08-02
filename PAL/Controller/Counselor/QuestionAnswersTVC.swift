@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class QuestionAnswersTVC: UITableViewController {
 
- 
     var questions: [Post] = [Post]()
     var answers: [Post] = [Post]()
     var answer: String? = nil

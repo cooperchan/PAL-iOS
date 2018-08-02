@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreData
-
+import UserNotifications
 
 //Global Variable
 var user_name: String? = nil
 var user_id: Int? = nil
 var counselor_id: Int? = nil
+var counselor_name: String? = nil
+var student_name: String? = nil
 var student_ID: Int? = nil
 var role: Int? = nil
 var form_id: Int? = nil
@@ -33,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        
 //        if(UserDefaults.standard.value(forKey: "user_id") != nil){
 //            //user_token = UserDefaults.standard.string(forKey: "user_id")!
 //            user_id = UserDefaults.standard.integer(forKey: "user_id")
@@ -44,11 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            self.window?.rootViewController = vc
 //            self.window?.makeKeyAndVisible()
 //        }
-        
-        
-        
-        
-        
         return true
     }
 
@@ -60,6 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+       
+        //Close connection to server
+        StudentChatRoomVC.sharedInstance.closeConnection()
+        CounselorChatRoomVC.sharedInstance.closeConnection()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

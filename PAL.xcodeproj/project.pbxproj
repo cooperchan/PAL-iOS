@@ -10,9 +10,10 @@
 		3E2DFBC4A9111466F1E27BD7 /* Pods_PAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AA4768027C4992AA7617C4 /* Pods_PAL.framework */; };
 		61CF142326F34D202038671B /* Pods_PALTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1126390931AB3F819816AF3 /* Pods_PALTests.framework */; };
 		8419675020E144F700D77084 /* QuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419674F20E144F600D77084 /* QuestionsVC.swift */; };
-		8424183520EEBC5F0060A63F /* FormsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183420EEBC5F0060A63F /* FormsVC.swift */; };
-		8424183720EFAAFF0060A63F /* AssignFormsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183620EFAAFF0060A63F /* AssignFormsTVC.swift */; };
+		8424183520EEBC5F0060A63F /* AssignFormsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183420EEBC5F0060A63F /* AssignFormsVC.swift */; };
+		8424183720EFAAFF0060A63F /* StudentListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183620EFAAFF0060A63F /* StudentListTVC.swift */; };
 		8424183D20EFE2DD0060A63F /* StudentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424183C20EFE2DD0060A63F /* StudentsCell.swift */; };
+		8449892D21137363001F04B6 /* CounselorTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449892C21137363001F04B6 /* CounselorTabBarVC.swift */; };
 		8450E63020EAAAEC0022148D /* UpdateCounselorProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */; };
 		8472737920CEFA0400D0EA66 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472737820CEFA0400D0EA66 /* LoginVC.swift */; };
 		8472737B20CEFCDA00D0EA66 /* Sweetalert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472737A20CEFCDA00D0EA66 /* Sweetalert.swift */; };
@@ -23,7 +24,7 @@
 		849E3BBF20D30B7100B932E6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E3BBE20D30B7000B932E6 /* ProfileVC.swift */; };
 		849E3BC120D31AC200B932E6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E3BC020D31AC200B932E6 /* Post.swift */; };
 		84DD6D6420F51313005581B5 /* SubmittedAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6320F51313005581B5 /* SubmittedAnswersCell.swift */; };
-		84DD6D6620F51426005581B5 /* FormAnswersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6520F51426005581B5 /* FormAnswersTVC.swift */; };
+		84DD6D6620F51426005581B5 /* SubmittedFormsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6520F51426005581B5 /* SubmittedFormsTVC.swift */; };
 		84DD6D6820F5143B005581B5 /* QuestionAnswersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6720F5143B005581B5 /* QuestionAnswersTVC.swift */; };
 		84DD6D6A20F52A42005581B5 /* DisplayAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6920F52A42005581B5 /* DisplayAnswersCell.swift */; };
 		84DD6D6C20F7D1B4005581B5 /* StudentTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6D6B20F7D1B4005581B5 /* StudentTabBarVC.swift */; };
@@ -66,9 +67,10 @@
 		28A56CF7E5DA8380059B4924 /* Pods-PALUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PALUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PALUITests/Pods-PALUITests.release.xcconfig"; sourceTree = "<group>"; };
 		62250B95354D43B668D0189C /* Pods-PALTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PALTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PALTests/Pods-PALTests.release.xcconfig"; sourceTree = "<group>"; };
 		8419674F20E144F600D77084 /* QuestionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsVC.swift; sourceTree = "<group>"; };
-		8424183420EEBC5F0060A63F /* FormsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormsVC.swift; sourceTree = "<group>"; };
-		8424183620EFAAFF0060A63F /* AssignFormsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignFormsTVC.swift; sourceTree = "<group>"; };
+		8424183420EEBC5F0060A63F /* AssignFormsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignFormsVC.swift; sourceTree = "<group>"; };
+		8424183620EFAAFF0060A63F /* StudentListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListTVC.swift; sourceTree = "<group>"; };
 		8424183C20EFE2DD0060A63F /* StudentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsCell.swift; sourceTree = "<group>"; };
+		8449892C21137363001F04B6 /* CounselorTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselorTabBarVC.swift; sourceTree = "<group>"; };
 		8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCounselorProfileVC.swift; sourceTree = "<group>"; };
 		8472737820CEFA0400D0EA66 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8472737A20CEFCDA00D0EA66 /* Sweetalert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sweetalert.swift; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 		849E3BBE20D30B7000B932E6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		849E3BC020D31AC200B932E6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		84DD6D6320F51313005581B5 /* SubmittedAnswersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedAnswersCell.swift; sourceTree = "<group>"; };
-		84DD6D6520F51426005581B5 /* FormAnswersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormAnswersTVC.swift; sourceTree = "<group>"; };
+		84DD6D6520F51426005581B5 /* SubmittedFormsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedFormsTVC.swift; sourceTree = "<group>"; };
 		84DD6D6720F5143B005581B5 /* QuestionAnswersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswersTVC.swift; sourceTree = "<group>"; };
 		84DD6D6920F52A42005581B5 /* DisplayAnswersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayAnswersCell.swift; sourceTree = "<group>"; };
 		84DD6D6B20F7D1B4005581B5 /* StudentTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTabBarVC.swift; sourceTree = "<group>"; };
@@ -164,6 +166,36 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8449892A2113491B001F04B6 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				84DD6D6B20F7D1B4005581B5 /* StudentTabBarVC.swift */,
+				849E3BBE20D30B7000B932E6 /* ProfileVC.swift */,
+				8493A48720D8662D00DA30B4 /* UpdateProfileVC.swift */,
+				8493A48A20DAC53900DA30B4 /* QuestionsTVC.swift */,
+				8419674F20E144F600D77084 /* QuestionsVC.swift */,
+				84DD6D6F20FCF2B3005581B5 /* StudentChatTabVC.swift */,
+				84DD6D7120FE6FD2005581B5 /* StudentChatRoomVC.swift */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		8449892B21134922001F04B6 /* Counselor */ = {
+			isa = PBXGroup;
+			children = (
+				84EF1CF920E55F380094E154 /* CounselorVC.swift */,
+				8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */,
+				8449892C21137363001F04B6 /* CounselorTabBarVC.swift */,
+				84DD6D6520F51426005581B5 /* SubmittedFormsTVC.swift */,
+				84DD6D6720F5143B005581B5 /* QuestionAnswersTVC.swift */,
+				8424183620EFAAFF0060A63F /* StudentListTVC.swift */,
+				84DD6D752100F7FB005581B5 /* CounselorActivitiesVC.swift */,
+				8424183420EEBC5F0060A63F /* AssignFormsVC.swift */,
+				84DD6D772100F88E005581B5 /* CounselorChatRoomVC.swift */,
+			);
+			path = Counselor;
+			sourceTree = "<group>";
+		};
 		8493A48C20DAC81500DA30B4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,24 +267,11 @@
 		D6AB893B20CE087A00351750 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8449892B21134922001F04B6 /* Counselor */,
+				8449892A2113491B001F04B6 /* Student */,
 				D6AB890C20CE083200351750 /* ViewController.swift */,
 				D627416E20CE0AB200CFA0C9 /* RegisterVC.swift */,
 				8472737820CEFA0400D0EA66 /* LoginVC.swift */,
-				849E3BBE20D30B7000B932E6 /* ProfileVC.swift */,
-				8493A48720D8662D00DA30B4 /* UpdateProfileVC.swift */,
-				8493A48A20DAC53900DA30B4 /* QuestionsTVC.swift */,
-				8419674F20E144F600D77084 /* QuestionsVC.swift */,
-				84EF1CF920E55F380094E154 /* CounselorVC.swift */,
-				8450E62F20EAAAEC0022148D /* UpdateCounselorProfileVC.swift */,
-				8424183420EEBC5F0060A63F /* FormsVC.swift */,
-				8424183620EFAAFF0060A63F /* AssignFormsTVC.swift */,
-				84DD6D6520F51426005581B5 /* FormAnswersTVC.swift */,
-				84DD6D6720F5143B005581B5 /* QuestionAnswersTVC.swift */,
-				84DD6D6B20F7D1B4005581B5 /* StudentTabBarVC.swift */,
-				84DD6D6F20FCF2B3005581B5 /* StudentChatTabVC.swift */,
-				84DD6D7120FE6FD2005581B5 /* StudentChatRoomVC.swift */,
-				84DD6D752100F7FB005581B5 /* CounselorActivitiesVC.swift */,
-				84DD6D772100F88E005581B5 /* CounselorChatRoomVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -503,6 +522,8 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DLRadioButton/DLRadioButton.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -510,6 +531,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DLRadioButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,18 +563,19 @@
 				D627417120CE0BB400CFA0C9 /* Service.swift in Sources */,
 				84DD6D6A20F52A42005581B5 /* DisplayAnswersCell.swift in Sources */,
 				849E3BC120D31AC200B932E6 /* Post.swift in Sources */,
+				8449892D21137363001F04B6 /* CounselorTabBarVC.swift in Sources */,
 				8493A48820D8662D00DA30B4 /* UpdateProfileVC.swift in Sources */,
 				84DD6D7220FE6FD2005581B5 /* StudentChatRoomVC.swift in Sources */,
 				8424183D20EFE2DD0060A63F /* StudentsCell.swift in Sources */,
 				84DD6D7020FCF2B3005581B5 /* StudentChatTabVC.swift in Sources */,
 				84DD6D782100F88E005581B5 /* CounselorChatRoomVC.swift in Sources */,
 				84DD6D6C20F7D1B4005581B5 /* StudentTabBarVC.swift in Sources */,
-				8424183520EEBC5F0060A63F /* FormsVC.swift in Sources */,
+				8424183520EEBC5F0060A63F /* AssignFormsVC.swift in Sources */,
 				84DD6D6820F5143B005581B5 /* QuestionAnswersTVC.swift in Sources */,
-				8424183720EFAAFF0060A63F /* AssignFormsTVC.swift in Sources */,
+				8424183720EFAAFF0060A63F /* StudentListTVC.swift in Sources */,
 				D6AB890D20CE083200351750 /* ViewController.swift in Sources */,
 				D6AB890B20CE083200351750 /* AppDelegate.swift in Sources */,
-				84DD6D6620F51426005581B5 /* FormAnswersTVC.swift in Sources */,
+				84DD6D6620F51426005581B5 /* SubmittedFormsTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

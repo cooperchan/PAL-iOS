@@ -11,6 +11,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - DLRadioButton (~> 1.4)
   - MessageKit
+  - Socket.IO-Client-Swift
   - Socket.IO-Client-Swift (~> 13.2.0)
   - SwiftyJSON (~> 4.0)
 
@@ -31,6 +32,6 @@ SPEC CHECKSUMS:
   Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: bad2ef33fcaa303657092f1c419a4f4c824405dc
+PODFILE CHECKSUM: d42336f4bfe631ef34e8b9f8277d586b9583ae6b
 
 COCOAPODS: 1.5.3

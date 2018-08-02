@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class FormAnswersTVC: UITableViewController {
+class SubmittedFormsTVC: UITableViewController {
 
     var listOfStudents: [Post] = [Post]()
     var listOfForms: [Post] = [Post]()
@@ -68,6 +68,11 @@ class FormAnswersTVC: UITableViewController {
         return submittedForm
     }
     
+    /*
+     Lets each submitted form be tappable
+     Each ID is the submitted ID and saves it
+     Goes to the QuestionAnswersTVC when pressed
+     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let submittedId = submissions_id[indexPath.row]
         print(submittedId)

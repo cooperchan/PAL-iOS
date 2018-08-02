@@ -10,6 +10,7 @@ target 'PAL' do
   pod 'Alamofire', '~> 4.7'
   pod 'DLRadioButton', '~> 1.4'
   pod 'MessageKit'
+  pod 'Socket.IO-Client-Swift'
 
   target 'PALTests' do
     inherit! :search_paths

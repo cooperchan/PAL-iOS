@@ -10,8 +10,13 @@ import UIKit
 import SwiftyJSON
 import DLRadioButton
 
+/*
+ This is the controller for the Questions for the form the user selected in QuestionsTVC
+ It displays the array of questions and gives them 5 possible answers to choose from
+ */
 class QuestionsVC: UIViewController {
 
+    //MARK: Variables
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var qCount: UILabel!
     @IBOutlet weak var button: UIButton!
@@ -36,11 +41,17 @@ class QuestionsVC: UIViewController {
         
         self.getQuestions(count: counter)
         
+        //Log Out Prompt
         let rightBarButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logOut))
         self.navigationItem.rightBarButtonItem = rightBarButton
         
     }
     
+    /*
+    Gets questions based on submission id and stores in an array
+    If the array is empty, show that there are no questions in form
+    Otherwise show the question based on the count
+    */
     func getQuestions(count: Int) {
         Service().getFormBySubmission(submission_id: submission_id!) { (response) in
             if count == -1 {
@@ -65,6 +76,8 @@ class QuestionsVC: UIViewController {
         }
     }
     
+    //Saves the answers in an array and sends it to server
+    //Also prints the amount of questions
     func submitAnswer(answer: Int) {
         let parameter: [String: Int] = ["answer": answer]
         let question_id = self.studentQuestionIDs[counter]
@@ -74,12 +87,14 @@ class QuestionsVC: UIViewController {
         }
     }
     
+    //At the end of the form, allows user to submit the form and sends it to server
     func submitForm() {
         Service().submitForm(submission_id: submission_id!) { (response) in
             print(response)
         }
     }
 
+    //5 Answer Option Buttons
     @IBAction func strongAgreeButt(_ sender: Any) {
         answer = 2
     }
@@ -100,6 +115,9 @@ class QuestionsVC: UIViewController {
         answer = -2
     }
     
+    //WHen submit button is hit, change question and save the answer they chose
+    //If the question was last in array, change to Submit Form
+    //Also ensure than an answer cannot be left blank
     @IBAction func submitQuestion(_ sender: Any) {
         if self.counter < self.studentQuestions.count - 1 && answer != nil {
             //If you still have questions to answer, show next question and record answer
@@ -134,12 +152,19 @@ class QuestionsVC: UIViewController {
         
     }
     
+    /*
+     Allows the user to logout, sending them back to inital landing page
+     THe checker ensures that the About Info doesn't popup again
+     Also closes connection to chatroom
+     */
     @objc func logOut() {
         checker = true
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "homepage_nav") as! UINavigationController
         self.present(vc, animated: true, completion: nil)
+        
+        StudentChatRoomVC.sharedInstance.closeConnection()
     }
     
 }

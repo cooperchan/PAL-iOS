@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ This controller handles the login page
+ It allows the user to login to the app and access either the student or counselor side
+ */
 class LoginVC: UIViewController {
 
     //MARK: Variables
@@ -21,11 +25,16 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //About Prompt
         let rightBarButton = UIBarButtonItem(title: "About", style: UIBarButtonItemStyle.plain, target: self, action: #selector(about))
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    
+    /*
+     When login button is pressed, check if the fields aren't empty
+     Send info to server to verify - Get back status
+     Check the user id to see if they are a student or counselor
+     */
     @IBAction func login(_ sender: Any) {
         if (emailInput.text?.isEmpty)! || (passwordInput.text?.isEmpty)! {
            _ = SweetAlert().showAlert("Error", subTitle: "Blank text field", style: .error)
@@ -34,8 +43,7 @@ class LoginVC: UIViewController {
             let parameters: [String: String] = ["email": emailInput.text!, "password": passwordInput.text!]
             Service().login(parameters: parameters) { (response) in
                 if response["status"].intValue == 1 {
-                    
-                    if counter == 0 {
+                    if counter >= 1 {
                         _ = SweetAlert().showAlert("Sucess", subTitle: "You are now logged in", style: .success)
                         counter += 1
                     } else {
