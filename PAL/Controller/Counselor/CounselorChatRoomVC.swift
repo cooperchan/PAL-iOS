@@ -79,11 +79,26 @@ internal class CounselorChatRoomVC: MessagesViewController {
         maintainPositionOnKeyboardFrameChanged = true // default false
         
         messagesCollectionView.addSubview(refreshControl)
+       // refreshControl.addTarget(self, action: #selector(ConversationViewController.loadMoreMessages), for: .valueChanged)
+        
         
         self.getData()
         self.addHandlers()
         self.socket.connect()
     }
+    
+    //When pull up, load 10 more messags
+    //    @objc func loadMoreMessages() {
+    //        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: DispatchTime.now() + 4) {
+    //            //SampleData.shared.getMessages(count: 10) { messages in
+    //                DispatchQueue.main.async {
+    //                    self.messageList.insert(contentsOf: messages, at: 0)
+    //                    self.messagesCollectionView.reloadDataAndKeepOffset()
+    //                    self.refreshControl.endRefreshing()
+    //                }
+    //            }
+    //        }
+    //    }
     
     //Gets the counselor name based on their ID and saves it
     //This will be used as reciever for the server
